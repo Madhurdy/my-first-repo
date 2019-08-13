@@ -1,5 +1,10 @@
-# Guessinggame
+all: 
+	rm README.md
+	touch README.md
+	echo "## Guessinggame" >> README.md
+	date >> README.md
+	wc -l guessinggame.sh >> README.md
 
-## 2019-06-21 18:00:00 (IST) ##
-•	26 of lines of code contained in guessinggame.sh
+clean:
+	rm README.md
 
