@@ -1,26 +1,37 @@
 #! usr/bin/env bash
 #guessinggame.sh
 
-function validate() {
-    read n
-    var=`(ls -l | grep -v ^d | wc -l)`
-    if [[ $n -eq $var ]]; then
-        echo 'Your answer is correct, Congratulation!!!'
-        return 1
-    elif [[ $n -lt $var ]]; then
-        echo 'You are entered value is too low'
-        echo 'Please try to guess again'
-    else
-        echo 'You are entered value is too high'
-        echo 'Please try to guess again'
-    fi
-    return 0
+function feedback {
+	if [[ $1 -eq 1 ]]
+	then
+		echo "Congratulations! Your guess is correct!"
+	elif [[ $1 -eq 2 ]]
+	then
+		echo "Your guess is too high!"
+	else
+		echo "Your guess is too low!"
+	fi
 }
-
-echo 'How many files are in the current directory:'
-while true; do
-    validate
-    if [[ $? -eq 1 ]]; then
-        break
-    fi
+file_number=$(ls -l | wc -l)-1
+loop_flag=0
+while [[ $loop_flag -eq 0 ]]
+do
+	echo "Type in a number and press enter:"
+	read response
+	if [[ $response =~ ^[0-9]+$ ]]
+	then
+	if [[ $response -eq $file_number ]]
+	then
+		let loop_flag=1
+		feedback 1
+		exit
+	elif [[ $response -gt $file_number ]]
+	then
+		feedback 2
+	else
+		feedback 3 
+	fi
+	else
+		echo "Please enter a number!"
+	fi
 done
