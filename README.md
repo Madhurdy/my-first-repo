@@ -1,10 +1,1 @@
-all: 
-	rm README.md
-	touch README.md
-	echo "## Guessinggame" >> README.md
-	date >> README.md
-	wc -l guessinggame.sh >> README.md
-
-clean:
-	rm README.md
-
+The title of the project is unix-homework Make was run at 10:44:55 06-17 The number of lines of code contained in guessinggame.sh is 36
