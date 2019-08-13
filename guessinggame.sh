@@ -1,37 +1,32 @@
-#! usr/bin/env bash
-#guessinggame.sh
+#!/usr/bin/env bash
+# File: guessinggame.sh
 
-function feedback {
-	if [[ $1 -eq 1 ]]
-	then
-		echo "Congratulations! Your guess is correct!"
-	elif [[ $1 -eq 2 ]]
-	then
-		echo "Your guess is too high!"
-	else
-		echo "Your guess is too low!"
-	fi
+correct=$(find . -maxdepth 1 ! -type d | wc -l)
+
+function Madhu {
+  if [[ "$input" =~ ^[1-9]+$ ]] 
+  then
+    if [[ $input -eq $correct ]]
+    then
+      echo "Congratulations ,the answer is $input"
+    else
+      if [[ $input -gt $correct ]]
+      then
+        echo "Sorry,the answer is too high"
+      else
+        echo "Sorry,the answer is too low"
+      fi
+    fi
+  else
+    input=0
+    echo "Sorry,the answer is a digit"
+  fi
+
 }
-file_number=$(ls -l | wc -l)-1
-loop_flag=0
-while [[ $loop_flag -eq 0 ]]
+
+while [[ $correct -ne $input ]]
 do
-	echo "Type in a number and press enter:"
-	read response
-	if [[ $response =~ ^[0-9]+$ ]]
-	then
-	if [[ $response -eq $file_number ]]
-	then
-		let loop_flag=1
-		feedback 1
-		exit
-	elif [[ $response -gt $file_number ]]
-	then
-		feedback 2
-	else
-		feedback 3 
-	fi
-	else
-		echo "Please enter a number!"
-	fi
+	echo "guess how many files are in the current directory"
+	read input
+	Madhu $input
 done
